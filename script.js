@@ -65,6 +65,35 @@ mobileInfoBtn.addEventListener("click", () => {
   mobileInfoIcon.className = open ? "fa-solid fa-xmark" : "fa-solid fa-info";
 });
 
+/* ---------- 섹션 본문 내 [이미지경로] 치환 ---------- */
+
+const INLINE_IMAGE_PATTERN = /\[([^\[\]]+\.(?:svg|png|jpe?g|gif|webp))\]/gi;
+
+function renderSectionText(container, text) {
+  let lastIndex = 0;
+  let match;
+
+  INLINE_IMAGE_PATTERN.lastIndex = 0;
+  while ((match = INLINE_IMAGE_PATTERN.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      container.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+    }
+
+    const img = document.createElement("img");
+    img.className = "section-inline-image";
+    img.src = match[1];
+    img.alt = "";
+    img.draggable = false;
+    container.appendChild(img);
+
+    lastIndex = INLINE_IMAGE_PATTERN.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    container.appendChild(document.createTextNode(text.slice(lastIndex)));
+  }
+}
+
 /* ---------- 캐릭터 렌더링 ---------- */
 
 function renderCharacter(index) {
@@ -85,7 +114,7 @@ function renderCharacter(index) {
   sectionNames.forEach((sectionName, i) => {
     const sectionEl = document.createElement("div");
     sectionEl.className = "char-section" + (i === 0 ? " active" : "");
-    sectionEl.textContent = c.sections[sectionName];
+    renderSectionText(sectionEl, c.sections[sectionName]);
     sectionsWrap.appendChild(sectionEl);
 
     const tabBtn = document.createElement("button");

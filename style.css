@@ -241,6 +241,13 @@ img {
 .char-section::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .char-section { scrollbar-width: none; -ms-overflow-style: none; }
 
+.section-inline-image {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 12px 0;
+}
+
 .char-image-wrap {
   position: absolute;
   z-index: 2;
