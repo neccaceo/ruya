@@ -21,8 +21,13 @@ html, body {
 body {
   font-family: "Pretendard", -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
+  background: #d3b3ae;
   -webkit-user-select: none;
   user-select: none;
+}
+
+html.fonts-loading #stage {
+  visibility: hidden;
 }
 
 img {
