@@ -103,6 +103,10 @@ function renderCharacter(index) {
   metaEl.textContent = c.meta;
   image.src = c.image;
   image.alt = c.name;
+  imageWrap.scrollTop = 0;
+  image.onload = () => {
+    imageWrap.scrollTop = 0;
+  };
 
   syncBgm(c.bgm);
 
@@ -138,6 +142,7 @@ function renderCharacter(index) {
   void imageWrap.offsetWidth;
   panel.classList.add("enter");
   imageWrap.classList.add("enter");
+  imageWrap.scrollTop = 0;
 }
 
 function goTo(index) {
