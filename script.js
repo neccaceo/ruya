@@ -5,5 +5,5 @@ window.addEventListener("load", () => {
   setTimeout(() => {
     loadingScreen.style.display = "none";
     content.hidden = false;
-  }, 1200);
+  }, 3000);
 });
