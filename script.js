@@ -3,10 +3,12 @@
 document.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("dragstart", (e) => e.preventDefault());
 
+const SCROLLABLE_SELECTOR = ".char-section, .char-image-wrap";
+
 document.addEventListener(
   "wheel",
   (e) => {
-    if (!e.target.closest(".char-section")) e.preventDefault();
+    if (!e.target.closest(SCROLLABLE_SELECTOR)) e.preventDefault();
   },
   { passive: false }
 );
@@ -14,7 +16,7 @@ document.addEventListener(
 document.addEventListener(
   "touchmove",
   (e) => {
-    if (!e.target.closest(".char-section")) e.preventDefault();
+    if (!e.target.closest(SCROLLABLE_SELECTOR)) e.preventDefault();
   },
   { passive: false }
 );

@@ -251,20 +251,32 @@ img {
   bottom: 0;
   width: min(52vw, 620px);
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
+
+.char-image-wrap::-webkit-scrollbar { width: 6px; }
+.char-image-wrap::-webkit-scrollbar-track { background: transparent; }
+.char-image-wrap::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  opacity: 0.5;
+  border-radius: 3px;
+}
+
+.char-image-wrap { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
 
 .char-image {
   width: min(46vw, 520px);
-  max-height: 94vh;
+  flex: none;
   object-fit: contain;
   object-position: bottom;
   opacity: 0;
   transform: translateY(60vh);
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
-  pointer-events: none;
 }
 
 .char-image.enter {
