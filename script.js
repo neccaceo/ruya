@@ -38,9 +38,11 @@ const bgmVolume = document.getElementById("bgm-volume");
 let characters = [];
 let current = 0;
 
+const collapseIcon = collapseBtn.querySelector("i");
+
 collapseBtn.addEventListener("click", () => {
   const collapsed = panel.classList.toggle("collapsed");
-  collapseBtn.textContent = collapsed ? "›" : "‹";
+  collapseIcon.className = collapsed ? "fa-solid fa-chevron-right" : "fa-solid fa-chevron-left";
 });
 
 /* ---------- 캐릭터 렌더링 ---------- */
