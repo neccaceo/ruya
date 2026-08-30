@@ -392,8 +392,10 @@ img {
     border-right: none;
     border-top: 1px solid var(--panel-border);
     opacity: 1;
+    visibility: hidden;
+    pointer-events: none;
     transform: none;
-    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.35s;
   }
 
   .char-panel.enter {
@@ -402,12 +404,21 @@ img {
 
   .char-panel.mobile-open {
     bottom: 0;
+    visibility: visible;
+    pointer-events: auto;
+    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .char-header { padding-top: 28px; }
 
   .dots {
-    bottom: 88px;
+    top: clamp(16px, 3vh, 28px);
+    bottom: auto;
+  }
+
+  .bgm-control {
+    top: clamp(16px, 3vh, 28px);
+    bottom: auto;
   }
 
   .mobile-info-btn {
