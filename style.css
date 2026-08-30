@@ -284,7 +284,8 @@ img {
 
 .char-image {
   width: 100%;
-  height: 1500px;
+  aspect-ratio: 1 / 2;
+  height: auto;
   flex: none;
   object-fit: contain;
   object-position: bottom;
@@ -380,7 +381,8 @@ img {
 
   .char-image {
     width: 88vw;
-    height: min(60vh, 640px);
+    aspect-ratio: 1 / 2;
+    height: auto;
     max-width: 420px;
   }
 
