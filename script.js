@@ -27,6 +27,7 @@ const introPhrase = document.getElementById("intro-phrase");
 const carousel = document.getElementById("carousel");
 const panel = document.getElementById("char-panel");
 const image = document.getElementById("char-image");
+const imageWrap = document.getElementById("char-image-wrap");
 const catchEl = document.getElementById("char-catch");
 const nameEl = document.getElementById("char-name");
 const metaEl = document.getElementById("char-meta");
@@ -92,11 +93,11 @@ function renderCharacter(index) {
   [...dotsWrap.children].forEach((dot, i) => dot.classList.toggle("active", i === index));
 
   panel.classList.remove("enter");
-  image.classList.remove("enter");
+  imageWrap.classList.remove("enter");
   void panel.offsetWidth;
-  void image.offsetWidth;
+  void imageWrap.offsetWidth;
   panel.classList.add("enter");
-  image.classList.add("enter");
+  imageWrap.classList.add("enter");
 }
 
 function goTo(index) {
