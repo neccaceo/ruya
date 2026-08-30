@@ -3,10 +3,12 @@
 document.addEventListener("contextmenu", (e) => e.preventDefault());
 document.addEventListener("dragstart", (e) => e.preventDefault());
 
+const SCROLLABLE_SELECTOR = ".char-section, .char-image-wrap";
+
 document.addEventListener(
   "wheel",
   (e) => {
-    if (!e.target.closest(".char-section")) e.preventDefault();
+    if (!e.target.closest(SCROLLABLE_SELECTOR)) e.preventDefault();
   },
   { passive: false }
 );
@@ -14,7 +16,7 @@ document.addEventListener(
 document.addEventListener(
   "touchmove",
   (e) => {
-    if (!e.target.closest(".char-section")) e.preventDefault();
+    if (!e.target.closest(SCROLLABLE_SELECTOR)) e.preventDefault();
   },
   { passive: false }
 );
@@ -34,6 +36,7 @@ const dotsWrap = document.getElementById("dots");
 const collapseBtn = document.getElementById("collapse-btn");
 const bgmBtn = document.getElementById("bgm-btn");
 const bgmVolume = document.getElementById("bgm-volume");
+const mobileInfoBtn = document.getElementById("mobile-info-btn");
 
 let characters = [];
 let current = 0;
@@ -43,6 +46,13 @@ const collapseIcon = collapseBtn.querySelector("i");
 collapseBtn.addEventListener("click", () => {
   const collapsed = panel.classList.toggle("collapsed");
   collapseIcon.className = collapsed ? "fa-solid fa-chevron-right" : "fa-solid fa-chevron-left";
+});
+
+const mobileInfoIcon = mobileInfoBtn.querySelector("i");
+
+mobileInfoBtn.addEventListener("click", () => {
+  const open = panel.classList.toggle("mobile-open");
+  mobileInfoIcon.className = open ? "fa-solid fa-xmark" : "fa-solid fa-info";
 });
 
 /* ---------- 캐릭터 렌더링 ---------- */
