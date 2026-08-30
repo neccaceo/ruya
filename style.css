@@ -289,7 +289,7 @@ img {
   height: auto;
   flex: none;
   object-fit: contain;
-  object-position: bottom;
+  object-position: top;
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
 }
 
