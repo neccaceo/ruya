@@ -129,7 +129,7 @@ img {
   backdrop-filter: blur(6px);
   opacity: 0;
   transform: translateX(-24px);
-  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
 }
 
 .char-panel.collapsed {
@@ -284,9 +284,10 @@ img {
 .char-image-wrap { scrollbar-width: none; -ms-overflow-style: none; }
 
 .char-image {
-  width: 100%;
-  height: auto;
+  width: min(46vw, 520px);
   flex: none;
+  object-fit: contain;
+  object-position: bottom;
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
 }
 
@@ -378,10 +379,8 @@ img {
   }
 
   .char-image {
-    width: 88vw;
-    aspect-ratio: 1 / 2;
-    height: auto;
-    max-width: 420px;
+    width: 62vw;
+    max-width: 320px;
   }
 
   .collapse-btn { display: none; }
