@@ -257,6 +257,16 @@ img {
   overflow-x: hidden;
   overscroll-behavior: contain;
   touch-action: pan-y;
+  opacity: 0;
+  transform: translateY(60vh);
+}
+
+.char-image-wrap.enter {
+  animation: image-in 0.7s cubic-bezier(0.16, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes image-in {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .char-image-wrap::-webkit-scrollbar { width: 6px; }
@@ -274,17 +284,7 @@ img {
   flex: none;
   object-fit: contain;
   object-position: bottom;
-  opacity: 0;
-  transform: translateY(60vh);
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
-}
-
-.char-image.enter {
-  animation: image-in 0.7s cubic-bezier(0.16, 0.9, 0.3, 1) forwards;
-}
-
-@keyframes image-in {
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ---------- 컨트롤 ---------- */
@@ -392,8 +392,10 @@ img {
     border-right: none;
     border-top: 1px solid var(--panel-border);
     opacity: 1;
+    visibility: hidden;
+    pointer-events: none;
     transform: none;
-    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.35s;
   }
 
   .char-panel.enter {
@@ -402,12 +404,21 @@ img {
 
   .char-panel.mobile-open {
     bottom: 0;
+    visibility: visible;
+    pointer-events: auto;
+    transition: bottom 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .char-header { padding-top: 28px; }
 
   .dots {
-    bottom: 88px;
+    top: clamp(16px, 3vh, 28px);
+    bottom: auto;
+  }
+
+  .bgm-control {
+    top: clamp(16px, 3vh, 28px);
+    bottom: auto;
   }
 
   .mobile-info-btn {
