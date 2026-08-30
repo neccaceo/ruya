@@ -33,6 +33,7 @@ const sectionsWrap = document.getElementById("char-sections");
 const dotsWrap = document.getElementById("dots");
 const collapseBtn = document.getElementById("collapse-btn");
 const bgmBtn = document.getElementById("bgm-btn");
+const bgmVolume = document.getElementById("bgm-volume");
 
 let characters = [];
 let current = 0;
@@ -151,6 +152,7 @@ function setupBgm(url) {
       events: {
         onReady: () => {
           bgmReady = true;
+          bgmPlayer.setVolume(Number(bgmVolume.value));
           attemptAutoplay();
         },
         onStateChange: (e) => {
@@ -184,6 +186,11 @@ bgmBtn.addEventListener("click", () => {
   } else {
     bgmPlayer.playVideo();
   }
+});
+
+bgmVolume.addEventListener("input", () => {
+  if (!bgmPlayer) return;
+  bgmPlayer.setVolume(Number(bgmVolume.value));
 });
 
 fetch("site.json")

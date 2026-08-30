@@ -1,9 +1,12 @@
 :root {
   --ink: #33231f;
   --ink-soft: #5b4440;
-  --panel: rgba(255, 248, 245, 0.72);
-  --panel-border: rgba(51, 35, 31, 0.14);
+  --panel: rgba(0, 0, 0, 0.5);
+  --panel-border: rgba(255, 255, 255, 0.16);
+  --panel-ink: #f5ece5;
+  --panel-ink-soft: #d9c4bd;
   --accent: #7a3b34;
+  --accent-light: #e8a798;
 }
 
 * { box-sizing: border-box; }
@@ -116,17 +119,16 @@ img {
   flex-direction: column;
   padding: clamp(32px, 4vw, 64px) clamp(32px, 5vw, 72px);
   background: var(--panel);
+  color: var(--panel-ink);
   border-right: 1px solid var(--panel-border);
   backdrop-filter: blur(6px);
-  box-shadow: 0 20px 60px rgba(51, 35, 31, 0.18);
   opacity: 0;
   transform: translateX(-24px);
-  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.35s ease;
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .char-panel.collapsed {
   width: min(30vw, 340px);
-  padding: clamp(24px, 3vw, 40px) clamp(20px, 3vw, 32px);
 }
 
 .char-panel.enter {
@@ -146,27 +148,27 @@ img {
   height: 32px;
   border-radius: 50%;
   border: 1px solid var(--panel-border);
-  background: rgba(255, 255, 255, 0.6);
-  color: var(--accent);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--panel-ink);
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 16px rgba(51, 35, 31, 0.12);
 }
 
 .char-header {
   flex: none;
   padding-right: 40px;
+  text-align: center;
 }
 
 .char-catch {
   margin: 0 0 12px;
   font-family: "Gaegu", "Noto Sans KR", sans-serif;
   font-size: clamp(22px, 2.6vw, 28px);
-  color: var(--accent);
+  color: var(--accent-light);
 }
 
 .char-name {
@@ -180,12 +182,13 @@ img {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--ink-soft);
+  color: var(--panel-ink-soft);
 }
 
 .char-tabs {
   flex: none;
   display: flex;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 14px;
 }
@@ -195,7 +198,7 @@ img {
   border-radius: 999px;
   border: 1px solid var(--panel-border);
   background: transparent;
-  color: var(--ink-soft);
+  color: var(--panel-ink-soft);
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -203,9 +206,9 @@ img {
 }
 
 .tab-btn.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+  background: var(--accent-light);
+  border-color: var(--accent-light);
+  color: #2a1815;
 }
 
 .char-sections {
@@ -223,7 +226,7 @@ img {
   padding-right: 12px;
   font-size: 15px;
   line-height: 1.75;
-  color: var(--ink);
+  color: var(--panel-ink);
   white-space: pre-wrap;
   display: none;
 }
@@ -233,12 +236,12 @@ img {
 .char-section::-webkit-scrollbar { width: 6px; }
 .char-section::-webkit-scrollbar-track { background: transparent; }
 .char-section::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  opacity: 0.5;
+  background: var(--accent-light);
+  opacity: 0.6;
   border-radius: 3px;
 }
 
-.char-section { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+.char-section { scrollbar-width: thin; scrollbar-color: var(--accent-light) transparent; }
 
 .char-image-wrap {
   position: absolute;
@@ -300,20 +303,38 @@ img {
   transform: scale(1.2);
 }
 
-.bgm-btn {
+.bgm-control {
   position: absolute;
   z-index: 6;
   bottom: clamp(18px, 3vh, 32px);
   right: clamp(18px, 3vw, 32px);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--panel-border);
-  background: var(--panel);
-  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bgm-volume {
+  width: 0;
+  opacity: 0;
+  accent-color: var(--accent);
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(51, 35, 31, 0.15);
+  transition: width 0.2s ease, opacity 0.2s ease;
+}
+
+.bgm-control:hover .bgm-volume,
+.bgm-control:focus-within .bgm-volume {
+  width: 90px;
+  opacity: 1;
+}
+
+.bgm-btn {
+  background: none;
+  border: none;
+  color: var(--ink);
+  font-size: 20px;
+  cursor: pointer;
   opacity: 0.6;
+  padding: 4px;
 }
 
 .bgm-btn.playing { opacity: 1; }
