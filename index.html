@@ -20,19 +20,29 @@
     <div id="carousel">
       <div class="char-slide">
         <div class="char-panel" id="char-panel">
-          <p class="char-catch" id="char-catch"></p>
-          <h2 class="char-name" id="char-name"></h2>
-          <p class="char-meta" id="char-meta"></p>
-          <p class="char-desc" id="char-desc"></p>
+          <button class="collapse-btn" id="collapse-btn" aria-label="상자 크기 전환">‹</button>
+
+          <div class="char-header">
+            <p class="char-catch" id="char-catch"></p>
+            <h2 class="char-name" id="char-name"></h2>
+            <p class="char-meta" id="char-meta"></p>
+          </div>
+
+          <div class="char-tabs" id="char-tabs"></div>
+
+          <div class="char-sections" id="char-sections"></div>
         </div>
-        <button class="collapse-btn" id="collapse-btn" aria-label="상자 크기 전환">‹</button>
+
         <div class="char-image-wrap">
-          <img class="char-image" id="char-image" alt="" />
+          <img class="char-image" id="char-image" alt="" draggable="false" />
         </div>
       </div>
 
-      <div class="dots" id="dots"></div>
+      <div class="dots" id="dots" hidden></div>
     </div>
+
+    <button class="bgm-btn" id="bgm-btn" aria-label="배경음악 재생/정지">🎵</button>
+    <div id="bgm-player"></div>
   </div>
 
   <script src="script.js"></script>
