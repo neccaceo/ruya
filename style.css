@@ -285,11 +285,8 @@ img {
 
 .char-image {
   width: 100%;
-  aspect-ratio: 1 / 2;
   height: auto;
   flex: none;
-  object-fit: contain;
-  object-position: top;
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
 }
 
