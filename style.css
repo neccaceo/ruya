@@ -13,30 +13,65 @@ body {
   position: fixed;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  background: #ffffff;
+  background: #d3b3ae;
+  overflow: hidden;
   z-index: 10;
+  animation: intro-bg-out 0.6s ease-in 2.4s forwards;
 }
 
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #e0e0f0;
-  border-top-color: #6c63ff;
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
+.intro-logo {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  font-family: "Gaegu", "Segoe UI", sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #1c1c1c;
+  opacity: 0;
+  animation: intro-fade-in 0.4s ease-out 0.1s forwards;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.intro-phrase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: "Gaegu", "Segoe UI", sans-serif;
+  color: #1c1c1c;
+  opacity: 0;
+  transform: scale(0.85);
+  animation:
+    intro-phrase-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards,
+    intro-phrase-out 0.6s ease-in 2s forwards;
 }
 
-#loading-screen p {
-  color: #666;
-  font-size: 14px;
+.intro-phrase span:first-child {
+  font-size: 56px;
+  font-weight: 700;
+}
+
+.intro-sub {
+  font-size: 24px;
+}
+
+@keyframes intro-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes intro-phrase-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes intro-phrase-out {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-140vw); }
+}
+
+@keyframes intro-bg-out {
+  to { opacity: 0; visibility: hidden; }
 }
 
 .page-header {
