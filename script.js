@@ -1,3 +1,12 @@
+/* ---------- 폰트 로딩 전 텍스트 노출 방지 ---------- */
+
+document.documentElement.classList.add("fonts-loading");
+
+const fontsReadyPromise = Promise.race([
+  document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve(),
+  new Promise((resolve) => setTimeout(resolve, 1500)),
+]);
+
 /* ---------- 스크롤 / 우클릭 / 이미지 드래그 방지 ---------- */
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -66,6 +75,8 @@ function renderCharacter(index) {
   image.src = c.image;
   image.alt = c.name;
 
+  syncBgm(c.bgm);
+
   const sectionNames = Object.keys(c.sections || {});
 
   tabsWrap.innerHTML = "";
@@ -106,6 +117,8 @@ function goTo(index) {
 }
 
 function playIntro() {
+  document.documentElement.classList.remove("fonts-loading");
+
   introPhrase.classList.remove("playing");
   carousel.classList.remove("visible");
   void introPhrase.offsetWidth;
@@ -121,15 +134,21 @@ function playIntro() {
 
 const CHARACTER_FILES = ["characters1.json", "characters2.json", "characters3.json"];
 
-Promise.allSettled(
-  CHARACTER_FILES.map((file) =>
-    fetch(file).then((res) => {
-      if (!res.ok) throw new Error("not found");
-      return res.json();
-    })
-  )
-).then((results) => {
-  characters = results.filter((r) => r.status === "fulfilled").map((r) => r.value);
+Promise.all([
+  Promise.allSettled(
+    CHARACTER_FILES.map((file) =>
+      fetch(file, { cache: "no-cache" }).then((res) => {
+        if (!res.ok) throw new Error("not found");
+        return res.json();
+      })
+    )
+  ),
+  fontsReadyPromise,
+]).then(([results]) => {
+  characters = results
+    .filter((r) => r.status === "fulfilled")
+    .map((r) => r.value)
+    .filter((c) => c && c.name && c.name.trim());
 
   characters.forEach((_, i) => {
     const dot = document.createElement("button");
@@ -144,32 +163,40 @@ Promise.allSettled(
   playIntro();
 });
 
-/* ---------- 배경음악 (YouTube, 첫 클릭 시 자동 재생) ---------- */
+/* ---------- 배경음악 (캐릭터별 YouTube 링크, 첫 클릭 시 자동 재생) ---------- */
 
 let bgmPlayer = null;
 let bgmReady = false;
+let bgmApiRequested = false;
+let currentBgmUrl = null;
+let pendingVideoId = null;
 
 function extractYoutubeId(url) {
   const match = url.match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/);
   return match ? match[1] : null;
 }
 
-function setupBgm(url) {
-  const videoId = extractYoutubeId(url);
-  if (!videoId) return;
-
+function createBgmPlayer(videoId) {
   window.onYouTubeIframeAPIReady = () => {
     bgmPlayer = new YT.Player("bgm-player", {
       videoId,
-      playerVars: { autoplay: 1, controls: 0 },
+      playerVars: { autoplay: 1, controls: 0, loop: 1, playlist: videoId },
       events: {
         onReady: () => {
           bgmReady = true;
           bgmPlayer.setVolume(Number(bgmVolume.value));
+          if (pendingVideoId && pendingVideoId !== videoId) {
+            bgmPlayer.loadVideoById(pendingVideoId);
+          }
+          pendingVideoId = null;
           attemptAutoplay();
         },
         onStateChange: (e) => {
           bgmBtn.classList.toggle("playing", e.data === YT.PlayerState.PLAYING);
+          if (e.data === YT.PlayerState.ENDED) {
+            bgmPlayer.seekTo(0);
+            bgmPlayer.playVideo();
+          }
         },
       },
     });
@@ -191,6 +218,23 @@ function attemptAutoplay() {
   document.addEventListener("touchstart", unlock, { once: true });
 }
 
+function syncBgm(url) {
+  if (!url || url === currentBgmUrl) return;
+  currentBgmUrl = url;
+
+  const videoId = extractYoutubeId(url);
+  if (!videoId) return;
+
+  if (!bgmApiRequested) {
+    bgmApiRequested = true;
+    createBgmPlayer(videoId);
+  } else if (bgmReady) {
+    bgmPlayer.loadVideoById(videoId);
+  } else {
+    pendingVideoId = videoId;
+  }
+}
+
 bgmBtn.addEventListener("click", () => {
   if (!bgmPlayer) return;
   const state = bgmPlayer.getPlayerState();
@@ -205,10 +249,3 @@ bgmVolume.addEventListener("input", () => {
   if (!bgmPlayer) return;
   bgmPlayer.setVolume(Number(bgmVolume.value));
 });
-
-fetch("site.json")
-  .then((res) => res.json())
-  .then((site) => {
-    if (site.bgm) setupBgm(site.bgm);
-  })
-  .catch(() => {});

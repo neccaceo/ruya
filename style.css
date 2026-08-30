@@ -21,8 +21,13 @@ html, body {
 body {
   font-family: "Pretendard", -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
+  background: #d3b3ae;
   -webkit-user-select: none;
   user-select: none;
+}
+
+html.fonts-loading #stage {
+  visibility: hidden;
 }
 
 img {
@@ -246,10 +251,10 @@ img {
 .char-image-wrap {
   position: absolute;
   z-index: 2;
+  left: min(62vw, 760px);
   right: 0;
   top: 0;
   bottom: 0;
-  width: min(52vw, 620px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -259,6 +264,11 @@ img {
   touch-action: pan-y;
   opacity: 0;
   transform: translateY(60vh);
+  transition: left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.char-panel.collapsed ~ .char-image-wrap {
+  left: min(30vw, 340px);
 }
 
 .char-image-wrap.enter {
