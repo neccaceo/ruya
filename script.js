@@ -161,7 +161,7 @@ function setupBgm(url) {
   window.onYouTubeIframeAPIReady = () => {
     bgmPlayer = new YT.Player("bgm-player", {
       videoId,
-      playerVars: { autoplay: 1, controls: 0 },
+      playerVars: { autoplay: 1, controls: 0, loop: 1, playlist: videoId },
       events: {
         onReady: () => {
           bgmReady = true;
@@ -170,6 +170,10 @@ function setupBgm(url) {
         },
         onStateChange: (e) => {
           bgmBtn.classList.toggle("playing", e.data === YT.PlayerState.PLAYING);
+          if (e.data === YT.PlayerState.ENDED) {
+            bgmPlayer.seekTo(0);
+            bgmPlayer.playVideo();
+          }
         },
       },
     });
