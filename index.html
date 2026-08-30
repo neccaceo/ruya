@@ -6,48 +6,34 @@
 <title>캐릭터 안내</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="loading-screen">
-    <span class="intro-logo">냅새-</span>
-    <div class="intro-phrase">
-      <span>여기즈음 캐프</span>
-      <span class="intro-sub">~! 어서 오세요</span>
+  <div id="stage">
+    <div id="intro-phrase">
+      <span class="headline">여기즈음 캐프</span>
+      <span class="subline">~! 어서 오세요</span>
+    </div>
+
+    <div id="carousel">
+      <div class="char-slide">
+        <div class="char-panel" id="char-panel">
+          <p class="char-catch" id="char-catch"></p>
+          <h2 class="char-name" id="char-name"></h2>
+          <p class="char-meta" id="char-meta"></p>
+          <p class="char-desc" id="char-desc"></p>
+        </div>
+        <button class="collapse-btn" id="collapse-btn" aria-label="상자 크기 전환">‹</button>
+        <div class="char-image-wrap">
+          <img class="char-image" id="char-image" alt="" />
+        </div>
+      </div>
+
+      <div class="dots" id="dots"></div>
     </div>
   </div>
-
-  <main id="content" hidden>
-    <header class="page-header">
-      <h1>캐릭터 소개</h1>
-      <p>우리의 캐릭터들을 만나보세요</p>
-    </header>
-
-    <section class="character-grid">
-      <article class="character-card">
-        <img class="character-image" src="https://placehold.co/300x300?text=Character+1" alt="캐릭터 1" />
-        <h2 class="character-name">캐릭터 이름 1</h2>
-        <p class="character-role">역할 / 직업</p>
-        <p class="character-desc">캐릭터에 대한 간단한 소개 문구가 들어갑니다.</p>
-      </article>
-
-      <article class="character-card">
-        <img class="character-image" src="https://placehold.co/300x300?text=Character+2" alt="캐릭터 2" />
-        <h2 class="character-name">캐릭터 이름 2</h2>
-        <p class="character-role">역할 / 직업</p>
-        <p class="character-desc">캐릭터에 대한 간단한 소개 문구가 들어갑니다.</p>
-      </article>
-
-      <article class="character-card">
-        <img class="character-image" src="https://placehold.co/300x300?text=Character+3" alt="캐릭터 3" />
-        <h2 class="character-name">캐릭터 이름 3</h2>
-        <p class="character-role">역할 / 직업</p>
-        <p class="character-desc">캐릭터에 대한 간단한 소개 문구가 들어갑니다.</p>
-      </article>
-    </section>
-  </main>
 
   <script src="script.js"></script>
 </body>
