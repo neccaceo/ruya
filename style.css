@@ -3,7 +3,7 @@
   --ink-soft: #D5AA23;
   --panel: rgba(0, 0, 0, 0.5);
   --panel-border: rgba(255, 255, 255, 0.16);
-  --panel-ink: #eee;
+  --panel-ink: #ededed;
   --panel-ink-soft: #F9D905;
   --accent: #D5AA23;
   --accent-light: #F9D905;
@@ -21,7 +21,7 @@ html, body {
 body {
   font-family: "Pretendard", -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
-  background: #d3b3ae;
+  background: #e7f2ea;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -40,7 +40,7 @@ img {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url("images/background.svg");
+  background-image: url("images/KakaoTalk_20260830_175057478.png");
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -129,7 +129,7 @@ img {
   backdrop-filter: blur(6px);
   opacity: 0;
   transform: translateX(-24px);
-  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .char-panel.collapsed {
@@ -248,6 +248,29 @@ img {
   margin: 12px 0;
 }
 
+.char-image-wrap {
+  position: absolute;
+  z-index: 2;
+  /* left: 0; */
+  right: -200px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  opacity: 0;
+  transform: translateY(60vh);
+  transition: left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.char-panel.collapsed ~ .char-image-wrap {
+  left: min(30vw, 340px);
+}
+
 .char-image-wrap.enter {
   animation: image-in 0.7s cubic-bezier(0.16, 0.9, 0.3, 1) forwards;
 }
@@ -259,35 +282,13 @@ img {
 .char-image-wrap::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .char-image-wrap { scrollbar-width: none; -ms-overflow-style: none; }
 
-
-.char-image-wrap {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding-right: clamp(16px, 4vw, 64px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  overflow-anchor: none;
-  overscroll-behavior: contain;
-  touch-action: pan-y;
-  opacity: 0;
-  transform: translateY(60vh);
-}
-
-
 .char-image {
   height: 1500px;
   min-height: 1500px;
   width: auto;
   flex: none;
   object-fit: contain;
-  object-position: bottom;
+  object-position: top;
   filter: drop-shadow(0 30px 40px rgba(51, 35, 31, 0.25));
 }
 
@@ -378,12 +379,11 @@ img {
     padding: 32px 0;
   }
 
-  .char-image {
-    width: 88vw;
-    height: min(60vh, 640px);
-    max-width: 420px;
-  }
-
+.char-image {
+  width: 88vw;
+  height: min(60vh, 640px);
+  max-width: 420px;
+}
   .collapse-btn { display: none; }
 
   .char-panel {
