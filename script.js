@@ -123,13 +123,16 @@ const CHARACTER_FILES = ["characters1.json", "characters2.json", "characters3.js
 
 Promise.allSettled(
   CHARACTER_FILES.map((file) =>
-    fetch(file).then((res) => {
+    fetch(file, { cache: "no-cache" }).then((res) => {
       if (!res.ok) throw new Error("not found");
       return res.json();
     })
   )
 ).then((results) => {
-  characters = results.filter((r) => r.status === "fulfilled").map((r) => r.value);
+  characters = results
+    .filter((r) => r.status === "fulfilled")
+    .map((r) => r.value)
+    .filter((c) => c && c.name && c.name.trim());
 
   characters.forEach((_, i) => {
     const dot = document.createElement("button");
@@ -210,7 +213,7 @@ bgmVolume.addEventListener("input", () => {
   bgmPlayer.setVolume(Number(bgmVolume.value));
 });
 
-fetch("site.json")
+fetch("site.json", { cache: "no-cache" })
   .then((res) => res.json())
   .then((site) => {
     if (site.bgm) setupBgm(site.bgm);
