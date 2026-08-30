@@ -260,6 +260,7 @@ img {
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
+  overflow-anchor: none;
   overscroll-behavior: contain;
   touch-action: pan-y;
   opacity: 0;
